@@ -1,7 +1,4 @@
 'use strict';
-/**
- * @typedef {import('aws-sdk').SNS} SNS
- */
 const { ErrorModel } = require('@/models');
 const { DATABASE, VALIDATION } = require('@/constants/error');
 
