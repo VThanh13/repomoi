@@ -7,7 +7,7 @@ const { logger } = require('@/libs/logger');
 class CartRepository extends BaseRepository {
   /**
    *
-   * @param {*} query
+   * @param {any} query
    * @param {Number} limit
    * @param {Number} page
    * @param {Boolean} count with count number of records

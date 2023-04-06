@@ -14,7 +14,7 @@ class OrderRepository extends BaseRepository {
   /**
    * @param {*} opts
    */
-  constructor(opts, redis) {
+  constructor(opts, _redis) {
     super();
     /** @type {defaultOpts} */
     this.opts = defaultsDeep(opts, defaultOpts);
@@ -146,6 +146,11 @@ class OrderRepository extends BaseRepository {
     }
     return coll;
   }
+  /**
+   * 
+   * @param {*} data 
+   * @returns 
+   */
   async create(data) {
     if (data == null) {
       return data;
@@ -154,6 +159,11 @@ class OrderRepository extends BaseRepository {
     const inserted = OrderModel.fromMongo(doc);
     return inserted;
   }
+  /**
+   * 
+   * @param {*} data 
+   * @returns 
+   */
   async delete(data = {}) {
     if (data == null) {
       return;
@@ -162,6 +172,10 @@ class OrderRepository extends BaseRepository {
     const coll = await OrderDto.delete(data);
     return coll;
   }
+  /**
+   * generateOrderCode
+   * @returns 
+   */
   async generateOrderCode() {
     const dateDB = moment(new Date(Date.now())).format('YYYY-MM-DD');
     const count = await OrderDto.aggregate([
@@ -183,6 +197,11 @@ class OrderRepository extends BaseRepository {
     const year = new Date().getFullYear().toString().substr(-2);
     return `DH${year}${month}${date}${number}`;
   }
+  /**
+   * search
+   * @param {*} data 
+   * @returns 
+   */
   async search(data) {
     const paging = {
       total: 0,
@@ -260,6 +279,11 @@ class OrderRepository extends BaseRepository {
     const coll = await OrderDto.aggregate(pipe).sort({ createdAt: -1 });
     return coll;
   }
+  /**
+   * historyOrder
+   * @param {String} customerId 
+   * @returns 
+   */
   async historyOrder(customerId) {
     const pipe = [
       {
@@ -285,6 +309,10 @@ class OrderRepository extends BaseRepository {
     const coll = await OrderDto.aggregate(pipe).sort({ createdAt: -1 });
     return coll;
   }
+  /**
+   * orderInDate
+   * @returns 
+   */
   async orderInDate() {
     const now = new Date();
     const dateNow = moment(now).format('YYYYMMDD');
@@ -442,21 +470,21 @@ class OrderRepository extends BaseRepository {
     ];
     const coll = await OrderDto.aggregate(pipe);
     const output = coll.reduce(
-      (p, c) => {
-        if (c.status === 'wait_for_confirmation') {
-          p.wait_for_confirmation += c.total;
-        } else if (c.status === 'approved') {
-          p.approved += c.total;
-        } else if (c.status === 'confirmed') {
-          p.confirmed += c.total;
-        } else if (c.status === 'ready_to_ship') {
-          p.ready_to_ship += c.total;
-        } else if (c.status === 'transporting') {
-          p.transporting += c.total;
-        } else if (c.status === 'completed') {
-          p.completed += c.total;
+      (pip, col) => {
+        if (col.status === 'wait_for_confirmation') {
+          pip.wait_for_confirmation += col.total;
+        } else if (col.status === 'approved') {
+          pip.approved += col.total;
+        } else if (col.status === 'confirmed') {
+          pip.confirmed += col.total;
+        } else if (col.status === 'ready_to_ship') {
+          pip.ready_to_ship += col.total;
+        } else if (col.status === 'transporting') {
+          pip.transporting += col.total;
+        } else if (col.status === 'completed') {
+          pip.completed += col.total;
         }
-        p.numberOrder += c.total;
+        pip.numberOrder += col.total;
         return p;
       },
       {

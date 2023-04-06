@@ -33,7 +33,11 @@ class BaseRepository {
       }
     }
   }
-
+  /**
+   * 
+   * @param {Error} err 
+   * @returns 
+   */
   parseMongooseError(err) {
     if (err != null) {
       let error = err;
