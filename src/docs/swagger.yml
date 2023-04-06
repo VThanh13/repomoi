@@ -1,0 +1,1681 @@
+swagger: '2.0'
+info:
+  description: API Orders Service
+  version: 1.0.0
+  title: API Orders Service
+  termsOfService: ''
+  contact:
+    email: caotri1242001@gmail.com
+host: api.127.0.0.1.xip.ip
+basePath: /api/v1
+tags: []
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /product:
+    post:
+      x-swagger-router-controller: product
+      operationId: create
+      description: Create new product
+      tags:
+        - ERP-product
+      parameters:
+        - in: body
+          name: product
+          description: Data product
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: product
+      operationId: search
+      description: Search product
+      tags:
+        - ERP-product
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: productType
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /product/{uid}:
+    put:
+      x-swagger-router-controller: product
+      operationId: update
+      description: Update product by Id
+      tags:
+        - ERP-product
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: product
+          description: Data product
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: product
+      operationId: delete
+      description: Delete Product By Id
+      tags:
+        - ERP-product
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: product
+      operationId: view
+      description: View product
+      tags:
+        - ERP-product
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /product/status/{uid}:
+    put:
+      x-swagger-router-controller: product
+      operationId: status
+      description: Status product by id
+      tags:
+        - ERP-product
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: product
+          description: Data product
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /product/listProduct:
+    get:
+      x-swagger-router-controller: product
+      operationId: listProduct
+      description: list Product
+      tags:
+        - ERP-product
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /productType:
+    post:
+      x-swagger-router-controller: productType
+      operationId: create
+      description: Create new productType
+      tags:
+        - ERP-productType
+      parameters:
+        - in: body
+          name: productType
+          description: Data productType
+          schema:
+            $ref: '#/definitions/ProductType'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: productType
+      operationId: search
+      description: Search productType
+      tags:
+        - ERP-productType
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /productType/{uid}:
+    put:
+      x-swagger-router-controller: productType
+      operationId: update
+      description: Update productType by Id
+      tags:
+        - ERP-productType
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: productType
+          description: Data productType
+          schema:
+            $ref: '#/definitions/ProductType'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: productType
+      operationId: delete
+      description: Delete ProductType By Id
+      tags:
+        - ERP-productType
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: productType
+      operationId: view
+      description: View productType
+      tags:
+        - ERP-productType
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /productType/status/{uid}:
+    put:
+      x-swagger-router-controller: productType
+      operationId: status
+      description: Status productType by id
+      tags:
+        - ERP-productType
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: productType
+          description: Data productType
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /productType/listProductType:
+    get:
+      x-swagger-router-controller: productType
+      operationId: listProductType
+      description: list Product
+      tags:
+        - ERP-productType
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /customer:
+    post:
+      x-swagger-router-controller: customer
+      operationId: create
+      description: Create new customer
+      tags:
+        - ERP-customer
+      parameters:
+        - in: body
+          name: customer
+          description: Data customer
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: customer
+      operationId: search
+      description: Search Customer
+      tags:
+        - ERP-customer
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /customer/{uid}:
+    put:
+      x-swagger-router-controller: customer
+      operationId: update
+      description: Update Customer by Id
+      tags:
+        - ERP-customer
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: customer
+          description: Data customer
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: customer
+      operationId: delete
+      description: Delete Customer By Id
+      tags:
+        - ERP-customer
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: customer
+      operationId: view
+      description: View customer
+      tags:
+        - ERP-customer
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /customer/status/{uid}:
+    put:
+      x-swagger-router-controller: customer
+      operationId: status
+      description: Status customer by id
+      tags:
+        - ERP-customer
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: customer
+          description: Data customer
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /customer/login:
+    post:
+      x-swagger-router-controller: customer
+      operationId: login
+      description: login customer
+      tags:
+        - ERP-customer
+      parameters:
+        - in: body
+          name: customer
+          description: Data customer
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /brand:
+    post:
+      x-swagger-router-controller: brand
+      operationId: create
+      description: Create new brand
+      tags:
+        - ERP-brand
+      parameters:
+        - in: body
+          name: brand
+          description: Data brand
+          schema:
+            $ref: '#/definitions/Brand'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: brand
+      operationId: search
+      description: Search brand
+      tags:
+        - ERP-brand
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /brand/{uid}:
+    put:
+      x-swagger-router-controller: brand
+      operationId: update
+      description: Update brand by Id
+      tags:
+        - ERP-brand
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: brand
+          description: Data brand
+          schema:
+            $ref: '#/definitions/Brand'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: brand
+      operationId: delete
+      description: Delete brand By Id
+      tags:
+        - ERP-brand
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: brand
+      operationId: view
+      description: View brand
+      tags:
+        - ERP-brand
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /brand/status/{uid}:
+    put:
+      x-swagger-router-controller: brand
+      operationId: status
+      description: Status brand by id
+      tags:
+        - ERP-brand
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: brand
+          description: Data brand
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+
+  /role:
+    post:
+      x-swagger-router-controller: role
+      operationId: create
+      description: Create new role
+      tags:
+        - ERP-role
+      parameters:
+        - in: body
+          name: role
+          description: Data role
+          schema:
+            $ref: '#/definitions/Role'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: role
+      operationId: search
+      description: Search Role
+      tags:
+        - ERP-role
+      parameters:
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /role/{uid}:
+    put:
+      x-swagger-router-controller: role
+      operationId: update
+      description: Update role by Id
+      tags:
+        - ERP-role
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: role
+          description: Data role
+          schema:
+            $ref: '#/definitions/Role'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: role
+      operationId: delete
+      description: Delete Role By Id
+      tags:
+        - ERP-role
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: role
+      operationId: view
+      description: View role
+      tags:
+        - ERP-role
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /role/status/{uid}:
+    put:
+      x-swagger-router-controller: role
+      operationId: status
+      description: Status role by id
+      tags:
+        - ERP-role
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: role
+          description: Data role
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /user:
+    post:
+      x-swagger-router-controller: user
+      operationId: create
+      description: Create new user
+      tags:
+        - ERP-user
+      parameters:
+        - in: body
+          name: user
+          description: Data user
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: user
+      operationId: search
+      description: Search user
+      tags:
+        - ERP-user
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: name
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /user/{uid}:
+    put:
+      x-swagger-router-controller: user
+      operationId: update
+      description: Update user by Id
+      tags:
+        - ERP-user
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: user
+          description: Data user
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: user
+      operationId: delete
+      description: Delete user By Id
+      tags:
+        - ERP-user
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: user
+      operationId: view
+      description: View user
+      tags:
+        - ERP-user
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /user/status/{uid}:
+    put:
+      x-swagger-router-controller: user
+      operationId: status
+      description: Status user by id
+      tags:
+        - ERP-user
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: user
+          description: Data user
+          schema:
+            $ref: '#/definitions/Status'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /user/listShipper:
+    get:
+      x-swagger-router-controller: user
+      operationId: listUserShipper
+      description: list user
+      tags:
+        - ERP-user
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /user/login:
+    post:
+      x-swagger-router-controller: user
+      operationId: login
+      description: login user
+      tags:
+        - ERP-user
+      parameters:
+        - in: body
+          name: user
+          description: Data user
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /cart:
+    post:
+      x-swagger-router-controller: cart
+      operationId: create
+      description: Create new cart
+      tags:
+        - ERP-cart
+      parameters:
+        - in: body
+          name: cart
+          description: Data Cart
+          schema:
+            $ref: '#/definitions/Cart'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /cart/{uid}:
+    put:
+      x-swagger-router-controller: cart
+      operationId: update
+      description: update cart
+      tags:
+        - ERP-cart
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: cart
+          description: Data Cart
+          schema:
+            $ref: '#/definitions/UpdateCart'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    delete:
+      x-swagger-router-controller: cart
+      operationId: delete
+      description: update cart
+      tags:
+        - ERP-cart
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /cart/viewCart:
+    get:
+      x-swagger-router-controller: cart
+      operationId: view
+      description: View cart
+      tags:
+        - ERP-cart
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/orderAdmin:
+    post:
+      x-swagger-router-controller: order
+      operationId: createOrderAdmin
+      description: create new order admin
+      tags:
+        - ERP-order
+      parameters:
+        - in: body
+          name: order
+          description: Data Order
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order:
+    post:
+      x-swagger-router-controller: order
+      operationId: create
+      description: create new order
+      tags:
+        - ERP-order
+      parameters:
+        - in: body
+          name: order
+          description: Data Order
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    get:
+      x-swagger-router-controller: order
+      operationId: search
+      description: Search order
+      tags:
+        - ERP-order
+      parameters:
+        - name: code
+          type: string
+          in: query
+          required: false
+        - name: status
+          type: string
+          in: query
+          required: false
+        - name: page
+          type: string
+          in: query
+          required: false
+        - name: limit
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/{uid}:
+    get:
+      x-swagger-router-controller: order
+      operationId: view
+      description: View order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+    put:
+      x-swagger-router-controller: order
+      operationId: update
+      description: update order
+      tags:
+        - ERP-order
+      parameters:
+        - name: uid
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: order
+          description: Data order
+          schema:
+            $ref: '#/definitions/UpdateOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/approve/{uid}:
+    put:
+      x-swagger-router-controller: order
+      operationId: approve
+      description: approve order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+        - in: body
+          name: approve order
+          description: approve order
+          schema:
+            $ref: '#/definitions/approveOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/readyToShip/{uid}:
+    put:
+      x-swagger-router-controller: order
+      operationId: readyToShip
+      description: ready_to_ship order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+        - in: body
+          name: ready_to_ship order
+          description: ready to ship order
+          schema:
+            $ref: '#/definitions/readyToShipOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/cancel/{uid}:
+    put:
+      x-swagger-router-controller: order
+      operationId: cancel
+      description: cancel order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+        - in: body
+          name: cancel order
+          description: cancel order
+          schema:
+            $ref: '#/definitions/cancelOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/listOrderShipper:
+    get:
+      x-swagger-router-controller: order
+      operationId: listOrderShipper
+      description: listOrderShipper order
+      tags:
+        - ERP-order
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/transport/{uid}:
+    put:
+      x-swagger-router-controller: order
+      operationId: transport
+      description: transport order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+        - in: body
+          name: transport order
+          description: transport order
+          schema:
+            $ref: '#/definitions/transportOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/complete/{uid}:
+    put:
+      x-swagger-router-controller: order
+      operationId: complete
+      description: completed order
+      tags:
+        - ERP-order
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          type: string
+        - in: body
+          name: complete order
+          description: complete order
+          schema:
+            $ref: '#/definitions/completeOrder'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/pay:
+    post:
+      x-swagger-router-controller: order
+      operationId: createPaypal
+      description: create Paypal
+      tags:
+        - ERP-order
+      parameters:
+        - in: body
+          name: price Paypal
+          description: Data paypal
+          schema:
+            $ref: '#/definitions/Paypal'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/momo:
+    post:
+      x-swagger-router-controller: order
+      operationId: momo
+      description: create momo
+      tags:
+        - ERP-order
+      parameters:
+        - in: body
+          name: data momo
+          description: Data momo
+          schema:
+            $ref: '#/definitions/momo'
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /success:
+    get:
+      x-swagger-router-controller: order
+      operationId: success
+      description: success Paypal
+      tags:
+        - ERP-order
+      parameters:
+        - name: PayerID
+          type: string
+          in: query
+          required: false
+        - name: paymentId
+          type: string
+          in: query
+          required: false
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/historyOrder:
+    get:
+      x-swagger-router-controller: order
+      operationId: historyOrder
+      description: history Order Of Customer
+      tags:
+        - ERP-order
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+  /order/homePage:
+    get:
+      x-swagger-router-controller: order
+      operationId: homePage
+      description: Home Page
+      tags:
+        - ERP-order
+      parameters:
+        - in: query
+          name: start
+          type: string
+        - in: query
+          name: end
+          type: string
+      responses:
+        '200':
+          description: Pong
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Pong'
+definitions:
+  Pong:
+    type: object
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Error's code
+      type:
+        type: string
+        description: Error's type
+      message:
+        type: string
+        description: Error's message
+  Product:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Cao Trí
+      price:
+        type: number
+        example: 3000
+      status:
+        type: boolean
+        example: true
+      discount:
+        type: number
+        example: 10
+      discountPrice:
+        type: number
+        example: 2700
+      expiryDate:
+        type: number
+        example: 24
+      productType:
+        type: string
+        example: 01FX2F9X4V97A9Q3RCX98AR3TB
+      brand:
+        type: string
+        example: 01FX2F9X4V97A9Q3RCX98AR3TB
+      image:
+        type: array
+        items:
+          type: string
+      descriptionSummary:
+        type: string
+        example: Sản phẩm thuộc thương hiệu ...
+      descriptionDetail:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+      quantity:
+        type: number
+        example: 100
+  Status:
+    type: object
+    properties:
+      status:
+        type: boolean
+  ProductType:
+    type: object
+    properties:
+      code:
+        type: string
+        example: NSTest65444
+      name:
+        type: string
+        example: Cao Trí
+      status:
+        type: boolean
+        example: true
+  Customer:
+    type: object
+    properties:
+      username:
+        type: string
+        example: caotri1242001
+      password:
+        type: string
+        example: caotri1242001
+      firstName:
+        type: string
+        example: Long
+      lastName:
+        type: string
+        example: Luong
+      dateOfBirth:
+        type: string
+        example: 2021-08-27T07:11:10.826Z
+        description: Ngay sinh
+      sex:
+        type: string
+        example: male
+      phone:
+        type: string
+        example: 0393506999
+      email:
+        type: string
+        example: caotri1242001@gmail.com
+      status:
+        type: boolean
+        example: true
+      avatar:
+        type: string
+        example: 'dsfdsaf.jpg'
+      address:
+        type: array
+        items:
+          type: object
+          properties:
+            street:
+              type: string
+            province:
+              type: string
+            district:
+              type: string
+            ward:
+              type: string
+            status:
+              type: boolean
+  Brand:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      status:
+        type: boolean
+      image:
+        type: string
+  User:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      status:
+        type: boolean
+        example: true
+      avatar:
+        type: string
+      roleId:
+        type: string
+  Role:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Cao Trí
+      status:
+        type: boolean
+        example: true
+  Login:
+    type: object
+    properties:
+      username:
+        type: string
+        example: caotri
+      password:
+        type: string
+        example: caotri
+  Cart:
+    type: object
+    properties:
+      product:
+        type: array
+        items:
+          type: object
+          properties:
+            productId:
+              type: string
+            number:
+              type: number
+            price:
+              type: number
+  UpdateCart:
+    type: object
+    properties:
+      productId:
+        type: string
+      name:
+        type: number
+      price:
+        type: number
+  Order:
+    type: object
+    properties:
+      orderCode:
+        type: string
+      customerId:
+        type: string
+      product:
+        type: array
+        items:
+          type: object
+          properties:
+            productId:
+              type: string
+            number:
+              type: number
+            price:
+              type: number
+      address:
+        type: object
+        properties:
+          street:
+            type: string
+          province:
+            type: string
+          district:
+            type: string
+          ward:
+            type: string
+      transportFee:
+        type: number
+      typePayment:
+        type: string
+      phone:
+        type: string
+      email:
+        type: string
+      date:
+        type: string
+      totalAmount:
+        type: object
+        properties:
+          total:
+            type: number
+          discount:
+            type: number
+  approveOrder:
+    type: object
+    properties:
+      status:
+        type: string
+        description: approved
+  Paypal:
+    type: object
+    properties:
+      price:
+        type: string
+  momo:
+    type: object
+    properties:
+      orderCode:
+        type: string
+      amount:
+        type: number
+  readyToShipOrder:
+    type: object
+    properties:
+      shipperId:
+        type: string
+      status:
+        type: string
+        description: ready_to_ship
+  transportOrder:
+    type: object
+    properties:
+      status:
+        type: string
+        description: transporting
+  completeOrder:
+    type: object
+    properties:
+      status:
+        type: string
+        description: completed
+  cancelOrder:
+    type: object
+    properties:
+      status:
+        type: string
+        description: cancelled
+  UpdateOrder:
+    type: object
+    properties:
+      customerId:
+        type: string
+      product:
+        type: array
+        items:
+          type: object
+          properties:
+            productId:
+              type: string
+            number:
+              type: number
+            price:
+              type: number
+      address:
+        type: object
+        properties:
+          street:
+            type: string
+          province:
+            type: string
+          district:
+            type: string
+          ward:
+            type: string
+      transportFee:
+        type: number
+      typePayment:
+        type: string
+      phone:
+        type: string
+      email:
+        type: string
+      totalAmount:
+        type: object
+        properties:
+          total:
+            type: number
+          discount:
+            type: number
