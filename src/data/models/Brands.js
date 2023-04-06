@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 //INTERNAL
-const { getDefaultDB } = require('../../infrastructures/mongoose');
+const { getDefaultDB } = require('@/infrastructures/mongoose');
 
 
 const BrandSchema = new Schema({
@@ -32,6 +32,6 @@ const BrandSchema = new Schema({
     image: {
         type: String,
     },
-}, { timestamps: true }, );
+}, { timestamps: true },);
 BrandSchema.plugin(mongooseDelete, { overrideMethods: true });
 module.exports = getDefaultDB().model('Brands', BrandSchema);
