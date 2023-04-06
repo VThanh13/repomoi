@@ -1,19 +1,17 @@
 'use strict';
-
-const { defaultsDeep } = require('lodash');
-const BaseRepository = require('./base_repository');
+const BaseRepository = require('./baseRepository');
 const BrandDto = require('./models/Brands');
+const { CollectionModel, BrandModel } = require('@/models');
+const { logger } = require('@/libs/logger');
 
-const { CollectionModel, BrandModel } = require('../models');
-const { logger } = require('../libs/logger');
-const { Utils } = require('../libs/utils');
-
-const defaultOpts = {};
+/**
+ * @typedef {typeof BrandModel} Brand
+ */
 
 class BrandRepository extends BaseRepository {
   /**
    *
-   * @param {*} query
+   * @param {any} query
    * @param {Number} limit
    * @param {Number} page
    * @param {Boolean} count with count number of records
@@ -82,6 +80,11 @@ class BrandRepository extends BaseRepository {
       logger.error(err, err.message);
     }
   }
+  /**
+   * 
+   * @param {{uid: string, data: any}} msg 
+   * @return {BrandModel}
+   */
   async updateBrandById(msg) {
     const { uid, data } = msg;
     const coll = await this.update(
@@ -93,6 +96,10 @@ class BrandRepository extends BaseRepository {
     const inserted = BrandModel.fromMongo(coll);
     return inserted;
   }
+  /**
+   * 
+   * @param {*} data
+   */
   async delete(data) {
     if (data == null) {
       return;
@@ -100,10 +107,21 @@ class BrandRepository extends BaseRepository {
     const coll = await BrandDto.delete({ uid: data });
     return coll;
   }
+  /**
+   * 
+   * @param {BrandModel} value 
+   * @returns 
+   */
   async deleteBrandById(value) {
     const deleted = await this.delete(value);
     return deleted;
   }
+  /**
+   * 
+   * @param {string} key 
+   * @param {any} value 
+   * @returns 
+   */
   async deleteMany(key, value) {
     // value type array
     if (value == null) {
@@ -112,7 +130,11 @@ class BrandRepository extends BaseRepository {
     const coll = await BrandDto.delete({ [key]: { $in: value } });
     return coll;
   }
-  ////
+  /**
+   * 
+   * @param {*} data 
+   * @returns 
+   */
   async search(data) {
     const paging = {
       total: 0,

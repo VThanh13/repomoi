@@ -1,14 +1,8 @@
 'use strict';
-
-const { defaultsDeep } = require('lodash');
-const BaseRepository = require('./base_repository');
+const BaseRepository = require('./baseRepository');
 const ProductDto = require('./models/Products');
-
-const { CollectionModel, ProductModel, BrandModel } = require('../models');
-const { logger } = require('../libs/logger');
-const { Utils } = require('../libs/utils');
-
-const defaultOpts = {};
+const { CollectionModel, ProductModel } = require('@/models');
+const { logger } = require('@/libs/logger');
 
 class ProductRepository extends BaseRepository {
     /**

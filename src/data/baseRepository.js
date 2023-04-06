@@ -1,7 +1,4 @@
 'use strict';
-/**
- * @typedef {import('aws-sdk').SNS} SNS
- */
 const { ErrorModel } = require('@/models');
 const { DATABASE, VALIDATION } = require('@/constants/error');
 
@@ -36,7 +33,11 @@ class BaseRepository {
       }
     }
   }
-
+  /**
+   * 
+   * @param {Error} err 
+   * @returns 
+   */
   parseMongooseError(err) {
     if (err != null) {
       let error = err;
