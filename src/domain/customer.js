@@ -13,7 +13,6 @@ const { ERROR, ROUTE, LOGS } = require('../constants');
 const { Utils } = require('../libs/utils');
 const moment = require('moment');
 const {
-  compareTwoText,
   hashText,
   HashToText,
 } = require('../libs/bcrypt_helper');
@@ -22,7 +21,6 @@ const JWT = require('jsonwebtoken');
 const defaultOpts = {};
 class CustomerService {
   /**
-   *
    * @param {*} opts
    * @param {PolicyService} policy
    * @param {customerRepository} repo
@@ -31,7 +29,7 @@ class CustomerService {
    * @param {cartRepository} repoCart
    */
   constructor(opts, policy, repo, repoProduct, repoOrder, repoCart) {
-    /** @type {defaultOpts} */
+  
     this.opts = defaultsDeep(opts, defaultOpts);
     this.policy = policy;
     this.repo = repo;
@@ -61,7 +59,7 @@ class CustomerService {
     return output;
   }
   async updateCustomer(msg) {
-    const { uid, data } = msg;
+    const { uid } = msg;
     const coll = await this.repo.findCustomer(
       {
         username: { $regex: `^${data.username}$`, $options: 'i' },
@@ -114,7 +112,7 @@ class CustomerService {
     }
   }
   async updateStatusCustomer(msg) {
-    const { uid, data } = msg;
+    const { uid } = msg;
     const findCustomer = await this.repo.findOne('uid', uid);
     if (!findCustomer) {
       throw ErrorModel.initWithParams({
@@ -136,7 +134,7 @@ class CustomerService {
         message: 'Tên đăng nhập hoặc mật khẩu không đúng.',
       });
     }
-    //3. Check status
+    //3. Check status ddddddd
     if (customer.status === false) {
       throw ErrorModel.initWithParams({
         ...ERROR.VALIDATION.INVALID_REQUEST,
@@ -175,6 +173,7 @@ class CustomerService {
     } catch (error) {
       res.status(401).send({ error: 'Not authorized to access this resource' });
     }
+    
   }
 }
 module.exports = CustomerService;
