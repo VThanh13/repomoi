@@ -49,7 +49,7 @@ class CustomerService {
       false,
     );
     if (coll.total > 0) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message: 'Tên đăng nhập đã tồn tại.',
       });
@@ -72,7 +72,7 @@ class CustomerService {
     );
     if (coll.data[0].uid !== uid) {
       if (coll.total > 0) {
-        throw ErrorModel.initWithParams({
+        throw ErrorModel({
           ...ERROR.VALIDATION.INVALID_REQUEST,
           message: 'Tên đăng nhập đã tồn tại.',
         });
@@ -82,7 +82,7 @@ class CustomerService {
     data.password = hashText(data.password);
     const findCustomer = await this.repo.findOne('uid', uid);
     if (!findCustomer) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -92,7 +92,7 @@ class CustomerService {
   async viewCustomerById(uid) {
     const findCustomer = await this.repo.findOne('uid', uid);
     if (!findCustomer) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -102,7 +102,7 @@ class CustomerService {
   async deleteCustomerById(uid) {
     const findCustomer = await this.repo.findOne('uid', uid);
     if (!findCustomer) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -117,7 +117,7 @@ class CustomerService {
     const { uid, data } = msg;
     const findCustomer = await this.repo.findOne('uid', uid);
     if (!findCustomer) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -131,14 +131,14 @@ class CustomerService {
   async login(data) {
     const customer = await this.repo.comparePasswordLogin(data);
     if (customer == null) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message: 'Tên đăng nhập hoặc mật khẩu không đúng.',
       });
     }
     //3. Check status
     if (customer.status === false) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message:
           'Tài khoản của bạn đang bị khóa. Hãy liên hệ với Admin để mở tài khoản.',

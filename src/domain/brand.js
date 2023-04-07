@@ -54,7 +54,7 @@ class BrandService {
         const { uid, data } = msg;
         const findBrand = await this.repo.findOne('uid', uid);
         if (!findBrand) {
-            throw ErrorModel.initWithParams({
+            throw ErrorModel({
                 ...ERROR.VALIDATION.NOT_FOUND,
             });
         }
@@ -64,7 +64,7 @@ class BrandService {
     async viewBrandById(uid) {
         const findBrand = await this.repo.findOne('uid', uid);
         if (!findBrand) {
-            throw ErrorModel.initWithParams({
+            throw ErrorModel({
                 ...ERROR.VALIDATION.NOT_FOUND,
             });
         }
@@ -73,7 +73,7 @@ class BrandService {
     async deleteBrandById(uid) {
         const findBrand = await this.repo.findOne('uid', uid);
         if (!findBrand) {
-            throw ErrorModel.initWithParams({
+            throw ErrorModel({
                 ...ERROR.VALIDATION.NOT_FOUND,
             });
         }
@@ -88,7 +88,7 @@ class BrandService {
         const { uid } = msg;
         const findBrand = await this.repo.findOne('uid', uid);
         if (!findBrand) {
-            throw ErrorModel.initWithParams({
+            throw ErrorModel({
                 ...ERROR.VALIDATION.NOT_FOUND,
             });
         }

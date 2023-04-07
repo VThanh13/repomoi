@@ -12,20 +12,20 @@ class BaseRepository {
       // https://github.com/mysqljs/mysql/blob/ad014c82b2cbaf47acae1cc39e5533d3cb6eb882/lib/protocol/constants/errors.js
       switch (err.code) {
         case 'ER_DUP_ENTRY':
-          return ErrorModel.initWithParams({ ...DATABASE.DUPLICATE });
+          return ErrorModel({ ...DATABASE.DUPLICATE });
         default:
           return err;
       }
     } else {
       switch (err.constructor.name) {
         case 'ValidationError':
-          return ErrorModel.initWithParams({
+          return ErrorModel({
             ...DATABASE.GENERIC,
             message: err.message,
             http: 400,
           });
         case 'UniqueViolationError':
-          return ErrorModel.initWithParams({ ...DATABASE.DUPLICATE });
+          return ErrorModel({ ...DATABASE.DUPLICATE });
         case 'MongooseError':
           return this.parseMongooseError(err);
         default:
@@ -49,9 +49,9 @@ class BaseRepository {
       }
       switch (error.kind) {
         case 'unique':
-          return ErrorModel.initWithParams({ ...DATABASE.DUPLICATE });
+          return ErrorModel({ ...DATABASE.DUPLICATE });
         case 'ObjectId':
-          return ErrorModel.initWithParams({
+          return ErrorModel({
             ...VALIDATION.NOT_FOUND,
           });
         default:

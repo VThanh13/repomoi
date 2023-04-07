@@ -1,6 +1,7 @@
 'use strict';
 /**
  * @typedef {import("mongoose").Document} Document
+ * @typedef {import("@/data/models/Customers")} CustomerSchema
  */
 const mongoose = require('mongoose');
 
@@ -9,74 +10,84 @@ const Base = require('./base');
 const { Utils } = require('../libs/utils');
 
 class Customer extends Base {
+    /** @type {String | undefined} */
+    uid = undefined;
+    /** @type {String | undefined} */
+    code = undefined;
+    /** @type {String | undefined} */
+    name = undefined;
+    /** @type {String | undefined} */
+    nameUnsigned = undefined;
+    /** @type {String | undefined} */
+    status = undefined;
+    /** @type {String | undefined} */
+    username = undefined;
+    /** @type {String | undefined} */
+    password = undefined;
+    /** @type {String | undefined} */
+    firstName = undefined;
+    /** @type {String | undefined} */
+    lastName = undefined;
+    /** @type {String | undefined} */
+    dateOfBirth = undefined;
+    /** @type {String | undefined} */
+    sex = undefined;
+    /** @type {String | undefined} */
+    phone = undefined;
+    /** @type {String | undefined} */
+    email = undefined;
+    /** @type {Boolean | undefined} */
+    status = undefined;
+    /** @type {String | undefined} */
+    avatar = undefined;
+    /** @type {String | undefined} */
+    roleId = undefined;
+    /** @type {Array | undefined} */
+    address = undefined;
+
     constructor() {
         super();
-        this.uid = undefined;
-        /** @type {String} */
-        this.code = undefined;
-        /** @type {String} */
-        this.name = undefined;
-        /** @type {String} */
-        this.nameUnsigned = undefined;
-        /** @type {String} */
-        this.status = undefined;
-        /** @type {String} */
-        this.username = undefined;
-        /** @type {String} */
-        this.password = undefined;
-        /** @type {String} */
-        this.firstName = undefined;
-        /** @type {String} */
-        this.lastName = undefined;
-        /** @type {String} */
-        this.dateOfBirth = undefined;
-        /** @type {String} */
-        this.sex = undefined;
-        /** @type {String} */
-        this.phone = undefined;
-        /** @type {String} */
-        this.email = undefined;
-        /** @type {String} */
-        this.status = undefined;
-        /** @type {Boolean} */
-        this.avatar = undefined;
-        /** @type {String} */
-        this.roleId = undefined;
-        /** @type {String} */
-        this.address = undefined;
-        /** @type {Array} */
     }
+
+    /**
+     * constructor with customer param
+     * @param {Customer} customer 
+     */
+    constructor(customer) {
+        super();
+        this = { ...customer }
+    }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns {Customer}
+     */
     static fromMongo(input) {
         if (input == null || input instanceof mongoose.Types.ObjectId) {
             return null;
         }
-        const output = new Customer();
-        if (input != null) {
-            output.uid = input.uid;
-            output.code = input.code;
-            output.name = input.name;
-            output.nameUnsigned = input.nameUnsigned;
-            output.username = input.username;
-            output.password = input.password;
-            output.firstName = input.firstName;
-            output.lastName = input.lastName;
-            output.dateOfBirth = input.dateOfBirth;
-            output.sex = input.sex;
-            output.phone = input.phone;
-            output.email = input.email;
-            output.status = input.status;
-            output.avatar = input.avatar;
-            output.address = input.address;
-            output.createdAt = input.createdAt;
-            output.updatedAt = input.updatedAt;
-        }
+        const output = new Customer(input);
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns {Customer}
+     */
     static toMongo(input) {
+
         // eslint-disable-next-line no-unused-vars
-        const { includedFields, ...Customer } = input;
-        return Customer;
+        const { includedFields, ...customer } = input;
+        return customer;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns {Customer}
+     */
     static fromRequest(input) {
         const output = new Customer();
         if (input != null) {
@@ -100,7 +111,7 @@ class Customer extends Base {
                 district: Utils.getString(input.district, ''),
                 ward: Utils.getString(input.ward, ''),
                 status: true,
-            }, ];
+            },];
             output.includedFields = Utils.extractIncludeAttributes(
                 input.includedFields,
             );
@@ -112,6 +123,12 @@ class Customer extends Base {
         output.lastName = output.lastName.trim().replace(/\s\s+/g, ' ');
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns 
+     */
     static fromUpdateCustomer(input) {
         const output = {};
         if (input != null) {
@@ -133,7 +150,7 @@ class Customer extends Base {
                 district: Utils.getString(input.district, ''),
                 ward: Utils.getString(input.ward, ''),
                 status: true,
-            }, ];
+            },];
             output.includedFields = Utils.extractIncludeAttributes(
                 input.includedFields,
             );
@@ -145,6 +162,12 @@ class Customer extends Base {
         output.lastName = output.lastName.trim().replace(/\s\s+/g, ' ');
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns 
+     */
     static fromUpdateStatusCustomer(input) {
         const output = {};
         if (input != null) {
@@ -152,6 +175,12 @@ class Customer extends Base {
         }
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns 
+     */
     static searchCustomer(input) {
         const output = {};
         output.code = !input.code ? null : input.code.trim();
@@ -169,6 +198,12 @@ class Customer extends Base {
         }
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns 
+     */
     static login(input) {
         const output = {};
         if (input != null) {
