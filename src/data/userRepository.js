@@ -16,19 +16,19 @@ class UserRepository extends BaseRepository {
      * @param {RedisClient} redis
      */
     constructor(opts, redis) {
-        super();
-        /** @type {defaultOpts} */
-        this.opts = defaultsDeep(opts, defaultOpts);
-        this.redis = redis;
-    }
-    /**
-     *
-     * @param {*} query
-     * @param {Number} limit
-     * @param {Number} page
-     * @param {Boolean} count with count number of records
-     * @returns {Promise<CollectionModel<UserModel>>}
-     */
+            super();
+            /** @type {defaultOpts} */
+            this.opts = defaultsDeep(opts, defaultOpts);
+            this.redis = redis;
+        }
+        /**
+         *
+         * @param {*} query
+         * @param {Number} limit
+         * @param {Number} page
+         * @param {Boolean} count with count number of records
+         * @returns {Promise<CollectionModel<UserModel>>}
+         */
     async findUser(query = {}, limit = 10, page = 1, count = false) {
         const coll = new CollectionModel();
         coll.page = page;
@@ -48,7 +48,7 @@ class UserRepository extends BaseRepository {
         return coll;
     }
     async findAllData(data) {
-        let coll = await UserDto.find({ ...data });
+        let coll = await UserDto.find({...data });
         if (coll.length > 0) {
             coll = coll.map((item) => UserModel.fromMongo(item));
         }
@@ -59,20 +59,17 @@ class UserRepository extends BaseRepository {
             return;
         }
         const doc = await new UserDto(data).save();
-        const inserted = UserModel.fromMongo(doc);
-        return inserted;
+        return UserModel.fromMongo(doc);
     }
     async findOne(key, value) {
         const coll = await UserDto.findOne({
             [key]: value
         });
-        const inserted = UserModel.fromMongo(coll);
-        return inserted;
+        return UserModel.fromMongo(coll);
     }
     async findData(data) {
         const docs = await UserDto.find(data);
-        const coll = docs.map((item) => UserModel.fromMongo(item));
-        return coll;
+        return docs.map((item) => UserModel.fromMongo(item));
     }
     async update(query = {}, update = {}) {
         try {
@@ -98,9 +95,8 @@ class UserRepository extends BaseRepository {
         const { uid, data } = msg;
         const coll = await this.update({ uid: uid }, {
             ...data,
-        },);
-        const inserted = UserModel.fromMongo(coll);
-        return inserted;
+        }, );
+        return UserModel.fromMongo(coll);
     }
     async delete(data) {
         if (data == null) {
@@ -127,7 +123,7 @@ class UserRepository extends BaseRepository {
         const count = await UserDto.find();
         const total = count.length + 1;
         const number = ('0000' + total).slice(-4);
-        return `User${number}`;
+        return `User${ number }`;
     }
     async search(data) {
         const paging = {
@@ -136,47 +132,42 @@ class UserRepository extends BaseRepository {
             limit: data.limit,
         };
         const pipe = [{
-            $addFields: {
-                status_: {
-                    $toString: '$status',
+                $addFields: {
+                    status_: {
+                        $toString: '$status',
+                    },
                 },
             },
-        },
-        {
-            $lookup: {
-                from: 'roles',
-                localField: 'roleId',
-                foreignField: 'uid',
-                as: 'role',
+            {
+                $lookup: {
+                    from: 'roles',
+                    localField: 'roleId',
+                    foreignField: 'uid',
+                    as: 'role',
+                },
             },
-        },
-        {
-            $unwind: '$role',
-        },
-        {
-            $match: {
-                code: !data.code ?
-                    { $regex: '', $options: 'i' } :
-                    { $regex: data.code, $options: 'i' },
-                nameUnsigned: !data.name ?
-                    { $regex: '', $options: 'i' } :
-                    { $regex: data.name.toLowerCase(), $options: 'i' },
-                status_: !data.status ?
-                    { $regex: '', $options: 'i' } :
-                    { $regex: data.status, $options: 'i' },
+            {
+                $unwind: '$role',
             },
-        },
-        {
-            $project: {
-                _id: 0,
-                username: 1,
-                email: 1,
-                phone: 1,
-                roleId: '$role.name',
-                status: 1,
-                avatar: 1,
+            {
+                $match: {
+                    code: !data.code ? { $regex: '', $options: 'i' } : { $regex: data.code, $options: 'i' },
+                    nameUnsigned: !data.name ? { $regex: '', $options: 'i' } : { $regex: data.name.toLowerCase(), $options: 'i' },
+                    status_: !data.status ? { $regex: '', $options: 'i' } : { $regex: data.status, $options: 'i' },
+                },
             },
-        },
+            //giải thích đoạn code trên
+            {
+                $project: {
+                    _id: 0,
+                    username: 1,
+                    email: 1,
+                    phone: 1,
+                    roleId: '$role.name',
+                    status: 1,
+                    avatar: 1,
+                },
+            },
         ];
         const coll = await UserDto.aggregate(pipe)
             .sort({ createdAt: -1 })
@@ -193,8 +184,8 @@ class UserRepository extends BaseRepository {
     }
     async comparePasswordLogin(data) {
         const coll = await this.findUser({
-            username: { $regex: `^${data.username}$`, $options: 'i' },
-        },
+                username: { $regex: `^${data.username}$`, $options: 'i' },
+            },
             1,
             1,
             false,
@@ -212,29 +203,29 @@ class UserRepository extends BaseRepository {
     }
     async searchShipper() {
         const pipe = [{
-            $lookup: {
-                from: 'roles',
-                localField: 'roleId',
-                foreignField: 'uid',
-                as: 'role',
+                $lookup: {
+                    from: 'roles',
+                    localField: 'roleId',
+                    foreignField: 'uid',
+                    as: 'role',
+                },
             },
-        },
-        {
-            $unwind: '$role',
-        },
-        {
-            $match: {
-                'role.name': 'Shipper',
+            {
+                $unwind: '$role',
             },
-        },
-        {
-            $project: {
-                _id: 0,
-                uid: 1,
-                name: 1,
-                createdAt: 1,
+            {
+                $match: {
+                    'role.name': 'Shipper',
+                },
             },
-        },
+            {
+                $project: {
+                    _id: 0,
+                    uid: 1,
+                    name: 1,
+                    createdAt: 1,
+                },
+            },
         ];
         const coll = await UserDto.aggregate(pipe).sort({ createdAt: -1 });
         return coll;
