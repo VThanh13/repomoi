@@ -1,5 +1,9 @@
 'use strict';
 const _ = require('lodash');
+
+/**
+ * @class Utils
+ */
 class Utils {
   /**
    *
@@ -47,7 +51,7 @@ class Utils {
 
   /**
    *
-   * @param {String|Number|Boolean} val
+   * @param {String | Number | Boolean} val
    * @param {Boolean} defaultVal
    */
   static getBoolean(val, defaultVal = false) {
@@ -162,23 +166,7 @@ class Utils {
   }
   static tvkd(str) {
     if (typeof str != 'string') return '';
-
-    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
-    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
-    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
-    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
-    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
-    str = str.replace(/đ/g, 'd');
-    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, 'A');
-    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, 'E');
-    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, 'I');
-    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, 'O');
-    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, 'U');
-    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, 'Y');
-    str = str.replace(/Đ/g, 'D');
     str = str.replace(/[-[\]{}()*+?.,\\/^$@!^&_=+;:'"<>|#%\s]/g, ' ');
-    // str = str.replace(/[%20\s]/g, ' ');
     // Some system encode vietnamese combining accent as individual utf-8 characters
     // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
     str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ''); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
@@ -193,13 +181,6 @@ class Utils {
     str = str.replace(/ + /g, ' ');
     str = str.trim();
 
-    // Remove punctuations
-    // Bỏ dấu câu, kí tự đặc biệt
-    // str = str.replace(
-    //   /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
-    //   ' ',
-    // );
-
     return str;
   }
   static checkWordUnsigned(input) {
@@ -208,9 +189,6 @@ class Utils {
       for (let i = 0; i < input.length; i++) {
         const ascii = input[i].charCodeAt(0);
         if (ascii != undefined) {
-          // if ((ascii > 65) & (ascii < 90)) {
-          //   status = false;
-          // }
           if ((ascii > 96) & (ascii < 123)) {
             status = false;
           } else if ((ascii > 47) & (ascii < 58)) {

@@ -1,25 +1,33 @@
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 
-const hashText = (text) => {
-  let hash = '';
-  if (text) {
-    hash = cryptr.encrypt(text);
-  }
-  return hash;
-};
+/**
+ * hast text by criptr lib
+ * @param {String} text 
+ * @returns {String}
+ */
+const hashText = (text) => text ? cryptr.encrypt(text) : '';
+
+/**
+ * compare the text and hash is equal
+ * @param {String} text 
+ * @param {String} hash 
+ * @return {Boolean} 
+ */
 const compareTwoText = (text, hash) => {
-  // return bcrypt.compareSync(text, hash); // true
-  let output = false;
-  const HashToText = cryptr.decrypt(hash);
-  if (HashToText == text) {
-    output = true;
-  }
-  return output;
+  const hashToTextDecrypt = cryptr.decrypt(hash);
+  return hashToTextDecrypt === text;
 };
+
+/**
+ * decrypt hast string to text
+ * @param {String} hash 
+ * @returns {String}
+ */
 const HashToText = (hash) => {
   return cryptr.decrypt(hash);
 };
+
 module.exports = {
   hashText,
   compareTwoText,

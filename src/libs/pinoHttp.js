@@ -3,6 +3,9 @@ const pino = require('pino');
 const serializers = require('pino-std-serializers');
 const startTime = Symbol('startTime');
 
+// Value max of interger number
+const MAX_INT = 2147483647
+
 function wrapChild(opts, stream) {
   const prevLogger = opts.logger;
   const prevGenReqId = opts.genReqId;
@@ -25,12 +28,12 @@ function reqIdGenFactory(func) {
   if (typeof func === 'function') {
     return func;
   }
-  const maxInt = 2147483647;
   let nextReqId = 0;
   return function genReqId(req) {
-    return req.id || (nextReqId = (nextReqId + 1) & maxInt);
+    return req.id || (nextReqId = (nextReqId + 1) & MAX_INT);
   };
 }
+
 function pinoLogger(opts, stream) {
   if (opts && opts._writableState) {
     stream = opts;
