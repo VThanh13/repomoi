@@ -52,19 +52,20 @@ class ProductRepository extends BaseRepository {
             return;
         }
         const doc = await new ProductDto(data).save();
-        const inserted = ProductModel.fromMongo(doc);
-        return inserted;
+        return ProductModel.fromMongo(doc);
+
     }
     async findOne(key, value) {
         const coll = await ProductDto.findOne({
-            [key]: value });
-        const inserted = ProductModel.fromMongo(coll);
-        return inserted;
+            [key]: value
+        });
+        return ProductModel.fromMongo(coll);
+
     }
     async findData(data) {
         const docs = await ProductDto.find(data);
-        const coll = docs.map((item) => ProductModel.fromMongo(item));
-        return coll;
+        return docs.map((item) => ProductModel.fromMongo(item));
+
     }
 
     async update(query = {}, update = {}) {
@@ -89,11 +90,11 @@ class ProductRepository extends BaseRepository {
     }
     async updateProductById(msg) {
         const { uid, data } = msg;
-        const coll = await this.update({ uid: uid }, {
+        const coll = await this.update({ uid }, {
             ...data,
         }, );
-        const inserted = ProductModel.fromMongo(coll);
-        return inserted;
+        return ProductModel.fromMongo(coll);
+
     }
     async delete(data) {
         if (data == null) {
@@ -112,7 +113,8 @@ class ProductRepository extends BaseRepository {
             return;
         }
         const coll = await ProductDto.delete({
-            [key]: { $in: value } });
+            [key]: { $in: value }
+        });
         return coll;
     }
     async search(data) {
@@ -152,20 +154,13 @@ class ProductRepository extends BaseRepository {
             },
             {
                 $match: {
-                    code: !data.code ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.code, $options: 'i' },
-                    nameUnsigned: !data.name ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.name.toLowerCase(), $options: 'i' },
-                    'productType.nameUnsigned': !data.productType ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.productType.toLowerCase(), $options: 'i' },
-                    status_: !data.status ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.status, $options: 'i' },
+                    code: !data.code ? { $regex: '', $options: 'i' } : { $regex: data.code, $options: 'i' },
+                    nameUnsigned: !data.name ? { $regex: '', $options: 'i' } : { $regex: data.name.toLowerCase(), $options: 'i' },
+                    'productType.nameUnsigned': !data.productType ? { $regex: '', $options: 'i' } : { $regex: data.productType.toLowerCase(), $options: 'i' },
+                    status_: !data.status ? { $regex: '', $options: 'i' } : { $regex: data.status, $options: 'i' },
                 },
             },
+            //giải thích đoạn code này để làm gì??
             {
                 $project: {
                     _id: 0,
