@@ -5,7 +5,7 @@ const { defaultsDeep } = require('lodash');
 const BaseRepository = require('./baseRepository');
 const CustomerDto = require('./models/Customers');
 const { CollectionModel, CustomerModel } = require('@/models');
-const { compareTwoText } = require('@/libs/bcrypt_helper');
+const { compareTwoText } = require('@/libs/bcryptHelper');
 const { logger } = require('@/libs/logger');
 
 const defaultOpts = {};
@@ -16,19 +16,19 @@ class CustomerRepository extends BaseRepository {
      * @param {RedisClient} redis
      */
     constructor(opts, redis) {
-            super();
-            /** @type {defaultOpts} */
-            this.opts = defaultsDeep(opts, defaultOpts);
-            this.redis = redis;
-        }
-        /**
-         *
-         * @param {*} query
-         * @param {Number} limit
-         * @param {Number} page
-         * @param {Boolean} count with count number of records
-         * @returns {Promise<CollectionModel<CustomerModel>>}
-         */
+        super();
+        /** @type {defaultOpts} */
+        this.opts = defaultsDeep(opts, defaultOpts);
+        this.redis = redis;
+    }
+    /**
+     *
+     * @param {*} query
+     * @param {Number} limit
+     * @param {Number} page
+     * @param {Boolean} count with count number of records
+     * @returns {Promise<CollectionModel<CustomerModel>>}
+     */
     async findCustomer(query = {}, limit = 10, page = 1, count = false) {
         const coll = new CollectionModel();
         coll.page = page;
@@ -48,7 +48,7 @@ class CustomerRepository extends BaseRepository {
         return coll;
     }
     async findAllData(data) {
-        let coll = await CustomerDto.find({...data });
+        let coll = await CustomerDto.find({ ...data });
         if (coll.length > 0) {
             coll = coll.map((item) => CustomerModel.fromMongo(item));
         }
@@ -64,7 +64,8 @@ class CustomerRepository extends BaseRepository {
     }
     async findOne(key, value) {
         const coll = await CustomerDto.findOne({
-            [key]: value });
+            [key]: value
+        });
         const inserted = CustomerModel.fromMongo(coll);
         return inserted;
     }
@@ -97,7 +98,7 @@ class CustomerRepository extends BaseRepository {
         const { uid, data } = msg;
         const coll = await this.update({ uid: uid }, {
             ...data,
-        }, );
+        },);
         const inserted = CustomerModel.fromMongo(coll);
         return inserted;
     }
@@ -118,7 +119,8 @@ class CustomerRepository extends BaseRepository {
             return;
         }
         const coll = await CustomerDto.delete({
-            [key]: { $in: value } });
+            [key]: { $in: value }
+        });
         return coll;
     }
     async generateCode() {
@@ -134,30 +136,30 @@ class CustomerRepository extends BaseRepository {
             limit: data.limit,
         };
         const pipe = [{
-                $addFields: {
-                    status_: {
-                        $toString: '$status',
-                    },
+            $addFields: {
+                status_: {
+                    $toString: '$status',
                 },
             },
-            {
-                $match: {
-                    code: !data.code ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.code, $options: 'i' },
-                    nameUnsigned: !data.name ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.name.toLowerCase(), $options: 'i' },
-                    status_: !data.status ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.status, $options: 'i' },
-                },
+        },
+        {
+            $match: {
+                code: !data.code ?
+                    { $regex: '', $options: 'i' } :
+                    { $regex: data.code, $options: 'i' },
+                nameUnsigned: !data.name ?
+                    { $regex: '', $options: 'i' } :
+                    { $regex: data.name.toLowerCase(), $options: 'i' },
+                status_: !data.status ?
+                    { $regex: '', $options: 'i' } :
+                    { $regex: data.status, $options: 'i' },
             },
-            {
-                $project: {
-                    _id: 0,
-                },
+        },
+        {
+            $project: {
+                _id: 0,
             },
+        },
         ];
         const coll = await CustomerDto.aggregate(pipe)
             .sort({ createdAt: -1 })
@@ -174,8 +176,8 @@ class CustomerRepository extends BaseRepository {
     }
     async comparePasswordLogin(data) {
         const coll = await this.findCustomer({
-                username: { $regex: `^${data.username}$`, $options: 'i' },
-            },
+            username: { $regex: `^${data.username}$`, $options: 'i' },
+        },
             1,
             1,
             false,

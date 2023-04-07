@@ -2,6 +2,7 @@
 const pino = require('pino');
 const serializers = require('pino-std-serializers');
 const startTime = Symbol('startTime');
+
 function wrapChild(opts, stream) {
   const prevLogger = opts.logger;
   const prevGenReqId = opts.genReqId;

@@ -2,8 +2,8 @@ const { Schema } = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 //INTERNAL
-const { getDefaultDB } = require('../../infrastructures/mongoose');
-const { hashText } = require('../../libs/bcrypt_helper');
+const { getDefaultDB } = require('@/infrastructures/mongoose');
+const { hashText } = require('@/libs/bcryptHelper');
 
 
 const UserSchema = new Schema({
@@ -52,8 +52,8 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true }, );
-UserSchema.pre('save', function(next) {
+}, { timestamps: true },);
+UserSchema.pre('save', function (next) {
     const user = this;
     user.password = hashText(user.password);
     next();

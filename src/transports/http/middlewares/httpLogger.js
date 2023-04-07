@@ -4,8 +4,11 @@
  */
 const pino = require('pino');
 const serializers = require('pino-std-serializers');
-const pinoHttp = require('../../../libs/pino_http');
 const { ulid } = require('ulid');
+
+// INTERNAL
+const pinoHttp = require('@/libs/pinoHttp');
+
 /**
  * Pino logger middleware for express
  * @function PinoLoggerMiddleWare

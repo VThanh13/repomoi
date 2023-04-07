@@ -1,27 +1,23 @@
 'use strict';
-const { ulid } = require('ulid');
 const bodyParser = require('body-parser');
-const express = require('express');
-const paypal = require('paypal-rest-sdk');
-const fs = require('fs');
-const stackTrace = require('stack-trace');
+const cors = require('cors');
 const { defaultsDeep } = require('lodash');
+const express = require('express');
+const fs = require('fs');
+const paypal = require('paypal-rest-sdk');
 const path = require('path');
 const swaggerTools = require('swagger-tools');
+const stackTrace = require('stack-trace');
 const yaml = require('js-yaml');
-const cors = require('cors');
 
-const { ErrorModel } = require('../../models');
-const { ERROR } = require('../../constants');
+// INTERNAL
+const { ERROR } = require('@/constants');
+const { ErrorModel } = require('@/models');
+const { logger, transport } = require('@/libs/logger');
 const { corsMiddleWare } = require('./middlewares/cors');
-const { logger, transport } = require('../../libs/logger');
-const { pinoHtttpMiddleware } = require('./middlewares/http_logger');
-
-const bearerRegex = /^Bearer\s/;
+const { pinoHtttpMiddleware } = require('./middlewares/httpLogger');
 
 /**
- * HttpServer Wrapper
- *
  * @class HttpServer
  */
 class HttpServer {
@@ -178,11 +174,10 @@ class HttpServer {
     await this.loadMiddleWare();
     return this.app;
   }
-
   /**
    * Stop server
    */
-  async stop() {}
+  async stop() { }
 }
 
 module.exports = {
