@@ -60,19 +60,19 @@ class CustomerRepository extends BaseRepository {
             return;
         }
         const doc = await new CustomerDto(data).save();
-        const inserted = CustomerModel.fromMongo(doc);
-        return inserted;
+        return CustomerModel.fromMongo(doc);
     }
     async findOne(key, value) {
         const coll = await CustomerDto.findOne({
-            [key]: value });
-        const inserted = CustomerModel.fromMongo(coll);
-        return inserted;
+            [key]: value
+        });
+        return CustomerModel.fromMongo(coll);
+
     }
     async findData(data) {
         const docs = await CustomerDto.find(data);
-        const coll = docs.map((item) => CustomerModel.fromMongo(item));
-        return coll;
+        return docs.map((item) => CustomerModel.fromMongo(item));
+
     }
     async update(query = {}, update = {}) {
         try {
@@ -99,8 +99,7 @@ class CustomerRepository extends BaseRepository {
         const coll = await this.update({ uid: uid }, {
             ...data,
         }, );
-        const inserted = CustomerModel.fromMongo(coll);
-        return inserted;
+        return CustomerModel.fromMongo(coll);
     }
     async delete(data) {
         if (data == null) {
@@ -119,7 +118,8 @@ class CustomerRepository extends BaseRepository {
             return;
         }
         const coll = await CustomerDto.delete({
-            [key]: { $in: value } });
+            [key]: { $in: value }
+        });
         return coll;
     }
     async generateCode() {
@@ -143,17 +143,12 @@ class CustomerRepository extends BaseRepository {
             },
             {
                 $match: {
-                    code: !data.code ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.code, $options: 'i' },
-                    nameUnsigned: !data.name ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.name.toLowerCase(), $options: 'i' },
-                    status_: !data.status ?
-                        { $regex: '', $options: 'i' } :
-                        { $regex: data.status, $options: 'i' },
+                    code: !data.code ? { $regex: '', $options: 'i' } : { $regex: data.code, $options: 'i' },
+                    nameUnsigned: !data.name ? { $regex: '', $options: 'i' } : { $regex: data.name.toLowerCase(), $options: 'i' },
+                    status_: !data.status ? { $regex: '', $options: 'i' } : { $regex: data.status, $options: 'i' },
                 },
             },
+            //giải thích đoạn code này để lầm gì??
             {
                 $project: {
                     _id: 0,
