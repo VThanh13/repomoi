@@ -16,23 +16,24 @@ const RoleRepository = require('./roleRepository');
 const BrandRepository = require('./brandRepository');
 const CartRepository = require('./cartRepository');
 const OrderRepository = require('./orderRepository');
-module.exports = {
-  productRepository: new ProductRepository({}),
-  customerRepository: new CustomerRepository({}),
-  userRepository: new UserRepository({}),
-  productTypeRepository: new ProductTypeRepository({}),
-  roleRepository: new RoleRepository({}),
-  brandRepository: new BrandRepository({}),
-  cartRepository: new CartRepository({}),
-  orderRepository: new OrderRepository({}),
 
-  productModel: productModel,
-  roleModel: roleModel,
-  userModel: userModel,
-  customerModel: customerModel,
-  productTypeModel: productTypeModel,
-  brandModel: brandModel,
-  roleModel: roleModel,
-  cartModel: cartModel,
-  orderModel: orderModel,
+module.exports = {
+    productRepository: new ProductRepository({}),
+    customerRepository: new CustomerRepository({}),
+    userRepository: new UserRepository({}),
+    productTypeRepository: new ProductTypeRepository({}),
+    roleRepository: new RoleRepository({}),
+    brandRepository: new BrandRepository({}),
+    cartRepository: new CartRepository({}),
+    orderRepository: new OrderRepository({}),
+
+    productModel: productModel,
+    roleModel: roleModel,
+    userModel: userModel,
+    customerModel: customerModel,
+    productTypeModel: productTypeModel,
+    brandModel: brandModel,
+    roleModel: roleModel,
+    cartModel: cartModel,
+    orderModel: orderModel,
 };
