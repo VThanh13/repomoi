@@ -3,7 +3,7 @@ const mongooseDelete = require('mongoose-delete');
 
 //INTERNAL
 const { getDefaultDB } = require('@/infrastructures/mongoose');
-const { hashText } = require('@/libs/bcrypt_helper');
+const { hashText } = require('@/libs/bcryptHelper');
 
 const CustomerSchema = new Schema({
     uid: {

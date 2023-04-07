@@ -1,13 +1,11 @@
-const { CustomerModel, CartModel } = require('../../../../models');
-const { customerService, cartService } = require('../../../../domain');
-const { CustomerValidate } = require('../../../../validate');
-const { loggerService } = require('../../../../libs/logger');
-
 /**
  * @typedef {import("express").Request} Request
  * @typedef {import("express").Response} Response
  * @typedef {import("express").NextFunction} NextFunction
  */
+const { CustomerModel, CartModel } = require('@/models');
+const { customerService, cartService } = require('@/domain');
+const { CustomerValidate } = require('@/validate');
 
 module.exports = {
   /* --------------------------------- API ERP -------------------------------- */

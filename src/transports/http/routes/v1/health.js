@@ -5,9 +5,11 @@
  * @typedef {import("express").NextFunction} NextFunction
  */
 const os = require('os');
-const { ErrorModel } = require('../../../../models');
-const { ERROR } = require('../../../../constants');
-const { logger } = require('../../../../libs/logger');
+
+// INTERNAL
+const { ErrorModel } = require('@/models');
+const { ERROR } = require('@/constants');
+const { logger } = require('@/libs/logger');
 
 module.exports = {
   /**

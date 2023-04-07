@@ -1,10 +1,9 @@
-const { OrderModel } = require('../../../../models');
+const { OrderModel } = require('/models');
 const {
   orderService,
   cartService,
   momoPaymentService,
-} = require('../../../../domain');
-const { loggerService } = require('../../../../libs/logger');
+} = require('/domain');
 
 const paypal = require('paypal-rest-sdk');
 /**

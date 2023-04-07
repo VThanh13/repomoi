@@ -2,16 +2,15 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+
+// INTERNAL
 const { logger } = require('./logger');
 /**
- * Class Config
- *
  * @class Config
  */
 class Config {
   /**
    * Load config from yaml file
-   *
    * @static
    * @returns {Object}
    * @memberof Config
