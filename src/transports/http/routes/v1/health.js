@@ -23,7 +23,7 @@ module.exports = {
     } catch (err) {
       logger.error(err, err.message);
       next(
-        ErrorModel.initWithParams({
+        ErrorModel({
           ...ERROR.SYSTEM.INTERNAL,
           message: 'Health check failed',
         }),

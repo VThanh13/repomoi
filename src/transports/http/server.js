@@ -113,25 +113,25 @@ class HttpServer {
       }),
     );
     this.app.use((req, res, next) => {
-      next(ErrorModel.initWithParams({ ...ERROR.VALIDATION.NOT_FOUND }));
+      next(ErrorModel({ ...ERROR.VALIDATION.NOT_FOUND }));
     });
 
     // eslint-disable-next-line no-unused-vars
     this.app.use((err, req, res, next) => {
       const context = res.locals.context;
       if (err != null && err.constructor != null) {
-        let ret = ErrorModel.initWithParams({
+        let ret = ErrorModel({
           ...ERROR.SYSTEM.GENERIC,
           ...(err.message && { message: err.message }),
         });
         if (err.failedValidation) {
-          ret = ErrorModel.initWithParams({
+          ret = ErrorModel({
             ...ERROR.VALIDATION.SWAGGER_VALIDATION,
           });
           ret.message = err.message;
           ret.meta = err.results;
         } else if (err.allowedMethods) {
-          ret = ErrorModel.initWithParams({
+          ret = ErrorModel({
             ...ERROR.VALIDATION.NOT_FOUND,
           });
         } else {

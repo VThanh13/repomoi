@@ -49,7 +49,7 @@ class OrderService {
     data.orderCode = await this.repo.generateOrderCode();
     data.date = moment(new Date()).format('YYYY/MM/DD');
     if (data.product.length === 0) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Hãy thêm sản phẩm vào giỏ hàng',
       });
@@ -70,7 +70,7 @@ class OrderService {
     data.orderCode = await this.repo.generateOrderCode();
     data.date = moment(new Date()).format('YYYY/MM/DD');
     if (data.product.length === 0) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Hãy thêm sản phẩm vào đơn hàng',
       });
@@ -82,13 +82,13 @@ class OrderService {
     const { uid, data } = msg;
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Không tìm thấy đơn hàng đơn hàng',
       });
     }
     if (data.product.length === 0) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Hãy thêm sản phẩm vào đơn hàng',
       });
@@ -103,7 +103,7 @@ class OrderService {
   async viewOrderById(uid) {
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -131,12 +131,12 @@ class OrderService {
     const { uid, data } = msg;
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     if (findOrder.status !== 'wait_for_confirmation') {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Trạng thái đơn hàng không hợp lệ',
       });
@@ -148,12 +148,12 @@ class OrderService {
     const { uid, data } = msg;
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     if (findOrder.status !== 'approved') {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Trạng thái đơn hàng không hợp lệ',
       });
@@ -165,12 +165,12 @@ class OrderService {
     const { uid, data } = msg;
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     if (findOrder.status !== 'ready_to_ship') {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Trạng thái đơn hàng không hợp lệ',
       });
@@ -183,12 +183,12 @@ class OrderService {
     data.deliveryDate = moment(new Date()).format('YYYY/MM/DD');
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     if (findOrder.status !== 'transporting') {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Trạng thái đơn hàng không hợp lệ',
       });
@@ -271,12 +271,12 @@ class OrderService {
     const { uid, data } = msg;
     const findOrder = await this.repo.findOne('uid', uid);
     if (!findOrder) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     if (findOrder.status !== 'wait_for_confirmation') {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Trạng thái đơn hàng không hợp lệ',
       });

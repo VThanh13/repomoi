@@ -31,13 +31,13 @@ class PolicyService {
   async check(role, route) {
     const permissions = await this.getObject(role);
     if (!permissions) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.AUTH.UNAUTHORIZED,
       });
     }
     const data = permissions.permissions.find((item) => item.route === route);
     if (!data || !data.enabled) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.AUTH.UNAUTHORIZED,
       });
     }

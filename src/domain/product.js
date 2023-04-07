@@ -53,7 +53,7 @@ class ProductService {
     data.uid = ulid();
     const checkPrice = data.price * (100 - data.discount);
     if (data.discountPrice !== checkPrice) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Giá khuyến mãi không khớp',
       });
@@ -65,13 +65,13 @@ class ProductService {
     const { uid, data } = msg;
     const findProduct = await this.repo.findOne('uid', uid);
     if (!findProduct) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
     const checkPrice = (data.price * (100 - data.discount)) / 100;
     if (data.discountPrice !== checkPrice) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
         message: 'Giá khuyến mãi không khớp',
       });
@@ -82,7 +82,7 @@ class ProductService {
   async viewProductById(uid) {
     const findProduct = await this.repo.findOne('uid', uid);
     if (!findProduct) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -111,7 +111,7 @@ class ProductService {
   async deleteProductById(uid) {
     const findProduct = await this.repo.findOne('uid', uid);
     if (!findProduct) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -126,7 +126,7 @@ class ProductService {
     const { uid, data } = msg;
     const findProduct = await this.repo.findOne('uid', uid);
     if (!findProduct) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }

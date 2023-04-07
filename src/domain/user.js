@@ -59,7 +59,7 @@ class UserService {
       false,
     );
     if (coll.total > 0) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message: 'Tên đăng nhập đã tồn tại.',
       });
@@ -81,7 +81,7 @@ class UserService {
     );
     if (coll.data[0].uid !== uid) {
       if (coll.total > 0) {
-        throw ErrorModel.initWithParams({
+        throw ErrorModel({
           ...ERROR.VALIDATION.INVALID_REQUEST,
           message: 'Tên đăng nhập đã tồn tại.',
         });
@@ -89,7 +89,7 @@ class UserService {
     }
     const findUser = await this.repo.findOne('uid', uid);
     if (!findUser) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -100,7 +100,7 @@ class UserService {
   async viewUserById(uid) {
     const findUser = await this.repo.findOne('uid', uid);
     if (!findUser) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -110,7 +110,7 @@ class UserService {
   async deleteUserById(uid) {
     const findUser = await this.repo.findOne('uid', uid);
     if (!findUser) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -125,7 +125,7 @@ class UserService {
     const { uid, data } = msg;
     const findUser = await this.repo.findOne('uid', uid);
     if (!findUser) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -139,14 +139,14 @@ class UserService {
   async login(data) {
     const user = await this.repo.comparePasswordLogin(data);
     if (user == null) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message: 'Tên đăng nhập hoặc mật khẩu không đúng.',
       });
     }
     //3. Check status
     if (user.status === false) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.INVALID_REQUEST,
         message:
           'Tài khoản của bạn đang bị khóa. Hãy liên hệ với Admin để mở tài khoản.',
@@ -154,7 +154,7 @@ class UserService {
     }
     const findRole = await this.repoRole.findOne('uid', user.roleId);
     if (!findRole) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }

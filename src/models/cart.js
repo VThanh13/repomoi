@@ -8,51 +8,57 @@ const mongoose = require('mongoose');
 const Base = require('./base');
 const { Utils } = require('../libs/utils');
 
+/**
+ * @class Cart @extends @class Base
+ */
 class Cart extends Base {
+    uid = undefined; /** @type {String | undefined} */
+    customerId = undefined; /** @type {String | undefined} */
+    product = undefined; /** @type {String | undefined} */
+
     constructor() {
-            super();
-            /** @type {String} */
-            this.uid = undefined;
-            /** @type {String} */
-            this.customerId = undefined;
-            /** @type {String} */
-            this.product = undefined;
-        }
-        /**
-         *
-         * @param {Document} input
-         * @returns {Cart}
-         */
+        super();
+    }
+    constructor(cart) {
+        super();
+        this = { ...cart }
+    }
+
+    /**
+     *
+     * @param {Document} input
+     * @returns {Cart}
+     */
     static fromMongo(input) {
-            if (input == null || input instanceof mongoose.Types.ObjectId) {
-                return null;
-            }
-            const output = new Cart();
-            if (input != null) {
-                output.uid = input.uid;
-                output.customerId = input.customerId;
-                output.product = input.product.map((item) => {
-                    return {
-                        productId: item.productId,
-                        number: item.number,
-                        price: item.price,
-                    };
-                });
-                output.createdAt = input.createdAt;
-                output.updatedAt = input.updatedAt;
-            }
-            return output;
+        if (input == null || input instanceof mongoose.Types.ObjectId) {
+            return null;
         }
-        /**
-         *
-         * @param {Cart} input
-         * @returns {*}
-         */
+
+        input.product = input.product.map((item) => ({
+            productId: item.productId,
+            number: item.number,
+            price: item.price,
+        }))
+
+        return new Cart(input);
+    }
+
+    /**
+     *
+     * @param {Cart} input
+     * @returns {*}
+     */
     static toMongo(input) {
-        // eslint-disable-next-line no-unused-vars
         const { includedFields, ...Cart } = input;
         return Cart;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @param {*} customerId 
+     * @returns 
+     */
     static fromRequest(input, customerId) {
         const output = new Cart();
         if (input != null) {
@@ -65,6 +71,12 @@ class Cart extends Base {
         );
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @returns 
+     */
     static fromUpdate(input) {
         const output = {};
         if (input != null) {
@@ -74,6 +86,13 @@ class Cart extends Base {
         }
         return output;
     }
+
+    /**
+     * 
+     * @param {*} input 
+     * @param {*} customerId 
+     * @returns 
+     */
     static create(input, customerId) {
         const output = new Cart();
         if (customerId != null) {
@@ -86,4 +105,5 @@ class Cart extends Base {
         return output;
     }
 }
+
 module.exports = Cart;

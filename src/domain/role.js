@@ -33,7 +33,7 @@ class RoleService {
     const { uid, data } = msg;
     const findRole = await this.repo.findOne('uid', uid);
     if (!findRole) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -43,7 +43,7 @@ class RoleService {
   async viewRole(uid) {
     const findRole = await this.repo.findOne('uid', uid);
     if (!findRole) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -52,7 +52,7 @@ class RoleService {
   async deleteRole(uid) {
     const findRole = await this.repo.findOne('uid', uid);
     if (!findRole) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -67,7 +67,7 @@ class RoleService {
     const { uid, data } = msg;
     const findProductType = await this.repo.findOne('uid', uid);
     if (!findProductType) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }

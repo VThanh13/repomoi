@@ -9,85 +9,86 @@ const Base = require('./base');
 const { Utils } = require('../libs/utils');
 
 class Order extends Base {
+    /** @type {String | undefined} */
+    uid = undefined;
+    /** @type {String | undefined} */
+    orderCode = undefined;
+    /** @type {String | undefined} */
+    customerId = undefined;
+    /** @type {Array | undefined} */
+    product = undefined;
+    /** @type {Number | undefined} */
+    transportFee = undefined;
+    /** @type {String | undefined} */
+    status = undefined;
+    /** @type {String | undefined} */
+    typePayment = undefined;
+    /** @type {String | undefined} */
+    phone = undefined;
+    /** @type {String | undefined} */
+    email = undefined;
+    /** @type {String | undefined} */
+    address = undefined;
+    /** @type {String | undefined} */
+    date = undefined;
+    /** @type {String | undefined} */
+    totalAmount = undefined;
+
+    /**
+     * default constructor
+     */
     constructor() {
         super();
-
-        this.uid = undefined;
-        /** @type {String} */
-
-        this.orderCode = undefined;
-        /** @type {String} */
-
-        this.customerId = undefined;
-        /** @type {String} */
-
-        this.product = undefined;
-        /** @type {Array} */
-
-        this.transportFee = undefined;
-        /** @type {Number} */
-
-        this.status = undefined;
-        /** @type {String} */
-
-        this.typePayment = undefined;
-        /** @type {String} */
-
-        this.phone = undefined;
-        /** @type {String} */
-
-        this.email = undefined;
-        /** @type {String} */
-
-        this.address = undefined;
-        /** @type {String} */
-
-        this.date = undefined;
-        /** @type {String} */
-
-        this.totalAmount = undefined;
-        /** @type {String} */
     }
+    constructor(order) {
+        this = { ...order }
+    }
+
+    /**
+     * 
+     * @param {Order | null} input 
+     * @returns 
+     */
     static fromMongo(input) {
-            if (input == null || input instanceof mongoose.Types.ObjectId) {
-                return null;
-            }
-            const output = new Order();
-            if (input != null) {
-                output.uid = input.uid;
-                output.orderCode = input.orderCode;
-                output.customerId = input.customerId;
-                output.product = input.product.map((item) => {
-                    const value = {
-                        productId: item.productId,
-                        number: item.number,
-                        price: item.price,
-                    };
-                    return value;
-                });
-                output.transportFee = input.transportFee;
-                output.status = input.status;
-                output.typePayment = input.typePayment;
-                output.phone = input.phone;
-                output.email = input.email;
-                output.address = input.address;
-                output.date = input.date;
-                output.totalAmount = {
-                    total: input.totalAmount.total,
-                    discount: input.totalAmount.discount,
-                };
-                output.shipperId = input.shipperId;
-                output.deliveryDate = input.deliveryDate;
-                output.createdAt = input.createdAt;
-                output.updatedAt = input.updatedAt;
-            }
-            return output;
+        if (input == null || input instanceof mongoose.Types.ObjectId) {
+            return null;
         }
-        /**
-         *
-         * @param {Order} input
-         * @returns {*}
-         */
+        const output = new Order();
+        if (input != null) {
+            output.uid = input.uid;
+            output.orderCode = input.orderCode;
+            output.customerId = input.customerId;
+            output.product = input.product.map((item) => {
+                const value = {
+                    productId: item.productId,
+                    number: item.number,
+                    price: item.price,
+                };
+                return value;
+            });
+            output.transportFee = input.transportFee;
+            output.status = input.status;
+            output.typePayment = input.typePayment;
+            output.phone = input.phone;
+            output.email = input.email;
+            output.address = input.address;
+            output.date = input.date;
+            output.totalAmount = {
+                total: input.totalAmount.total,
+                discount: input.totalAmount.discount,
+            };
+            output.shipperId = input.shipperId;
+            output.deliveryDate = input.deliveryDate;
+            output.createdAt = input.createdAt;
+            output.updatedAt = input.updatedAt;
+        }
+        return output;
+    }
+    /**
+     *
+     * @param {Order} input
+     * @returns {*}
+     */
     static toMongo(input) {
         // eslint-disable-next-line no-unused-vars
         const { includedFields, ...Order } = input;
@@ -131,6 +132,12 @@ class Order extends Base {
         }
         return output;
     }
+    /**
+     * 
+     * @param {*} input 
+     * @typedef {{ code: any; status: any; limit: any; page: any; }} SearchOrderOutput
+     * @returns {SearchOrderOutput}
+     */
     static searchOrder(input) {
         const output = {};
         output.code = !input.code ? null : input.code.trim();
@@ -197,6 +204,11 @@ class Order extends Base {
         }
         return output;
     }
+    /**
+     * 
+     * @param {*} input 
+     * @returns {Order}
+     */
     static createOrder(input) {
         const output = new Order();
         if (input != null) {

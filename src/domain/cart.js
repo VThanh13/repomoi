@@ -1,18 +1,17 @@
 'use strict';
 /**
  * @typedef {import("./policy")} PolicyService
- * @typedef {import("../data/cartRepository")} cartRepository
- * @typedef {import("../data/customerRepository")} customerRepository
- * @typedef {import("../data/productRepository")} productRepository
- * @typedef {import("../data/orderRepository")} orderRepository
- * @typedef {import("../data/userRepository")} userRepository
+ * @typedef {import("@/data/cartRepository")} cartRepository
+ * @typedef {import("@/data/customerRepository")} customerRepository
+ * @typedef {import("@/data/productRepository")} productRepository
+ * @typedef {import("@/data/orderRepository")} orderRepository
+ * @typedef {import("@/data/userRepository")} userRepository
  
  */
 const { defaultsDeep } = require('lodash');
 const { ulid } = require('ulid');
-const { ErrorModel } = require('../models');
-const { ERROR, ROUTE, LOGS } = require('../constants');
-const { Utils } = require('../libs/utils');
+const { ErrorModel } = require('@/models');
+const { ERROR, ROUTE, LOGS } = require('@/constants');
 const defaultOpts = {};
 class CartService {
   /**
@@ -52,9 +51,9 @@ class CartService {
     const { uid, data } = msg;
     const findCart = await this.repo.findOne('uid', uid);
     if (!findCart) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel(
         ...ERROR.VALIDATION.NOT_FOUND,
-      });
+      );
     }
     const findProductOnCart = findCart.product.filter(
       (item) => item.productId === data.productId,
@@ -72,7 +71,7 @@ class CartService {
         },
       );
       if (!ret) {
-        throw ErrorModel.initWithParams({
+        throw ErrorModel({
           ...ERROR.VALIDATION.INVALID_REQUEST,
           message: 'Cập nhật không thành công',
         });
@@ -95,7 +94,7 @@ class CartService {
         },
       );
       if (!ret) {
-        throw ErrorModel.initWithParams({
+        throw ErrorModel({
           ...ERROR.VALIDATION.INVALID_REQUEST,
           message: 'Cập nhật không thành công',
         });
@@ -106,7 +105,7 @@ class CartService {
   async viewCart(customerId) {
     const findCart = await this.repo.findOne('customerId', customerId);
     if (!findCart) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -133,7 +132,7 @@ class CartService {
   async deleteCart(customerId, uid) {
     const findCart = await this.repo.findOne('customerId', customerId);
     if (!findCart) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }

@@ -33,10 +33,10 @@ class ProductTypeService {
     return output;
   }
   async updateProductType(msg) {
-    const { uid, data } = msg;
+    const { uid } = msg;
     const findProductType = await this.repo.findOne('uid', uid);
     if (!findProductType) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -46,7 +46,7 @@ class ProductTypeService {
   async viewProductType(uid) {
     const findProductType = await this.repo.findOne('uid', uid);
     if (!findProductType) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -55,7 +55,7 @@ class ProductTypeService {
   async deleteProductType(uid) {
     const findProductType = await this.repo.findOne('uid', uid);
     if (!findProductType) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
@@ -70,7 +70,7 @@ class ProductTypeService {
     const { uid, data } = msg;
     const findProductType = await this.repo.findOne('uid', uid);
     if (!findProductType) {
-      throw ErrorModel.initWithParams({
+      throw ErrorModel({
         ...ERROR.VALIDATION.NOT_FOUND,
       });
     }
