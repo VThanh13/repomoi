@@ -1,6 +1,5 @@
-const { ProductTypeModel } = require('../../../../models');
-const { productTypeService } = require('../../../../domain');
-const { loggerService } = require('../../../../libs/logger');
+const { ProductTypeModel } = require('@/models');
+const { productTypeService } = require('@/domain');
 
 /**
  * @typedef {import("express").Request} Request

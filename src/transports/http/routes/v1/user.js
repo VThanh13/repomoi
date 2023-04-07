@@ -1,6 +1,5 @@
-const { UserModel } = require('../../../../models');
-const { userService } = require('../../../../domain');
-const { loggerService } = require('../../../../libs/logger');
+const { UserModel } = require('@/models');
+const { userService } = require('@/domain');
 
 /**
  * @typedef {import("express").Request} Request

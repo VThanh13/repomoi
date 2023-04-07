@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 //INTERNAL
-const { getDefaultDB } = require('../../infrastructures/mongoose');
+const { getDefaultDB } = require('@/infrastructures/mongoose');
 
 const RoleSchema = new Schema({
     uid: {
@@ -19,6 +19,6 @@ const RoleSchema = new Schema({
         type: Boolean,
         required: true,
     },
-}, { timestamps: true }, );
+}, { timestamps: true },);
 RoleSchema.plugin(mongooseDelete, { overrideMethods: true });
 module.exports = getDefaultDB().model('Roles', RoleSchema);

@@ -1,6 +1,5 @@
-const { RoleModel } = require('../../../../models');
-const { roleService } = require('../../../../domain');
-const { loggerService } = require('../../../../libs/logger');
+const { RoleModel } = require('@/models');
+const { roleService } = require('@/domain');
 
 /**
  * @typedef {import("express").Request} Request

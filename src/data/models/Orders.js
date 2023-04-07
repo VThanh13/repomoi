@@ -2,7 +2,7 @@ const mongooseDelete = require('mongoose-delete');
 const { Schema } = require('mongoose');
 
 //INTERNAL
-const { getDefaultDB } = require('../../infrastructures/mongoose');
+const { getDefaultDB } = require('@/infrastructures/mongoose');
 
 const ProductSchema = new Schema({
     productId: {
@@ -84,6 +84,6 @@ const OrderSchema = new schema({
     deliveryDate: {
         type: String,
     },
-}, { timestamps: true }, );
+}, { timestamps: true },);
 OrderSchema.plugin(mongooseDelete, { overrideMethods: true });
 module.exports = getDefaultDB().model('Orders', OrderSchema);

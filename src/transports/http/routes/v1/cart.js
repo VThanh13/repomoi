@@ -1,6 +1,6 @@
-const { CartModel } = require('../../../../models');
-const { cartService } = require('../../../../domain');
-const { loggerService } = require('../../../../libs/logger');
+const { CartModel } = require('@/models');
+const { cartService } = require('@/domain');
+const { loggerService } = require('@/libs/logger');
 
 /**
  * @typedef {import("express").Request} Request
@@ -64,6 +64,6 @@ module.exports = {
         success: true,
         results: output,
       });
-    } catch (error) {}
+    } catch (error) { }
   },
 };

@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
 
 // INTERNAL
-const { getDefaultDB } = require('../../infrastructures/mongoose');
+const { getDefaultDB } = require('@/infrastructures/mongoose');
 
 
 const ProductSchema = new Schema({
@@ -18,7 +18,7 @@ const ProductSchema = new Schema({
         type: Number,
         required: true,
     },
-}, { timestamps: true }, );
+}, { timestamps: true },);
 const CartSchema = new Schema({
     uid: {
         type: String,
@@ -31,6 +31,6 @@ const CartSchema = new Schema({
         required: true,
     },
     product: [ProductSchema],
-}, { timestamps: true }, );
+}, { timestamps: true },);
 CartSchema.plugin(mongooseDelete, { overrideMethods: true });
 module.exports = getDefaultDB().model('Carts', CartSchema);
