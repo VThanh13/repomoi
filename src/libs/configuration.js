@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
+const ENV = process.env.NODE_ENV
+
 // INTERNAL
 const { logger } = require('./logger');
 /**
@@ -18,12 +20,12 @@ class Config {
   static loadSetting() {
     const conf = {};
     const url = path.join(__dirname, '..', 'configs');
-    if (process.env.NODE_ENV == null) {
+    if (ENV == null) {
       process.env.NODE_ENV = 'development';
     }
     try {
       const doc = yaml.safeLoad(
-        fs.readFileSync(`${url}/${process.env.NODE_ENV}.yml`, 'utf8'),
+        fs.readFileSync(`${url}/${ENV}.yml`, 'utf8'),
       );
       for (const key of Object.keys(doc)) {
         const val = doc[key];
@@ -33,7 +35,7 @@ class Config {
       }
     } catch (err) {
       logger.info(
-        `Failed when loading configuration file ${process.env.NODE_ENV}.yml, fallback to configuration.yml`,
+        `Failed when loading configuration file ${ENV}.yml, fallback to configuration.yml`,
       );
       try {
         const doc = yaml.safeLoad(
